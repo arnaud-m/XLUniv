@@ -1,0 +1,13 @@
+Package: XLUniv
+Title: Collection of Excel Workbooks for managing students in a French University
+Version: 0.0.0.9000
+Authors@R: person("Arnaud", "Malapert", email = "arnaud.malapert@unice.fr", role = c("aut", "cre"))
+Description: Collection of functions for generating excel workbooks for different teaching activities (grading, ranking, listing).
+URL: https://github.com/arnaud-m/XLUniv
+BugReports: https://github.com/arnaud-m/XLUniv/issues    
+Depends:
+    R (>= 3.4.4)
+License: MIT + file LICENSE
+LazyData: true
+Suggests: testthat
+Imports: XLConnect
