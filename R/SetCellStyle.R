@@ -7,7 +7,8 @@
 #' @param cellstyle 'cellstyle' to apply
 #' 
 #' The function sets the style for the cartesian product of the vectors row and col.
-#' It is a simple wrapper around XLConnect::setCellStyle which sets the style to pairs of indices. 
+#' It is a simple wrapper around XLConnect::setCellStyle which sets the style to pairs of indices.
+#' @seealso \code{\link[XLConnect]{setCellStyle}} 
 #'
 #' @export 
 #' @examples

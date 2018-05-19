@@ -8,6 +8,8 @@
 #' The function is a wrapper around XLConnect::getOrCreateCellStyle that configure the style if it does not exist.
 #' There are actually four predefined styles: header; highlight; stat; listing.
 #'
+#' @seealso \code{\link[XLConnect]{getOrCreateCellStyle}}
+#' 
 #' @export 
 #' @examples
 #'  # Load workbook (create if not existing)
