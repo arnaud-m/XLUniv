@@ -4,8 +4,7 @@
 #+COLUMNS: %38ITEM(Details) %7TODO(To Do) %TAGS(Context) 
 #+OPTIONS: tags:t timestamp:t todo:t TeX:t LaTeX:t          
 #+OPTIONS: skip:t @:t ::t |:t ^:t f:t
-#+TITLE:  Package XLUniv
-* Description
+* Package XLUniv
 
 [[https://opensource.org/licenses/MIT][https://img.shields.io/badge/License-MIT-yellow.svg]]
 
