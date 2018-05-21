@@ -60,10 +60,6 @@
    #   library(XLUniv)
    # #+END_SRC
  
-* Contributing
-
-  - Arnaud Malapert: Associate professor, Université Côte d'Azur, CNRS, I3S, France.
-
 * License
 
   Copyright (c) 2018, Arnaud Malapert, Université Côte d'Azur, CNRS, I3S, France
