@@ -39,7 +39,7 @@ CreateSheetGrade <- function(wb, df, coefs, max = NA, round = 0.5) {
                      cellstyle = GetOrCreateCellStyle(wb, "highlight"))
   ## Set formulas
   for(k in seq(2,n)) {
-    XLConnect::setCellFormula(wb, sheet, k , m, GetGradeFormula(k, m1, coefs, max, round))
+    XLConnect::setCellFormula(wb, sheet, k , m, GetGradeFormula(k, m1+1, coefs, max, round))
   }
   SetStatFormula(wb, sheet, n, seq(m1 + 1, m), mlab = m1)   
 }
