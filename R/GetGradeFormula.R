@@ -10,14 +10,14 @@
 #' @export 
 #' @examples
 #'
-#' coefs <- c(CC = 0.3, CP = 0.3, CT=0.4)
+#' coefs <- c(CC = 0.3, CP = 0.3, CT = 0.4)
 #' GetGradeFormula(5, 10, coefs)
 #' GetGradeFormula(5, 10, coefs, max = 3)
 #' GetGradeFormula(5, 10, coefs, round = NA) 
 GetGradeFormula <- function(n, m, coefs, max = NA, round = 0.5) {
-  input <- Idx2Ref(c(rbind(n, m + seq_along(coefs)-1)))
+  input <- Idx2Ref(c(rbind(n, m + seq_along(coefs) - 1)))
   if(is.numeric(max)) {
-    input <- paste("MAX(", input, ", ", Idx2Ref(c(n, m + max)), ")", sep = "")
+    input <- paste("MAX(", input, ", ", Idx2Ref(c(n, m + max - 1)), ")", sep = "")
   }
   formula <- paste(coefs, '*', input, sep = "", collapse = ' + ')
   if(is.numeric(round)) {
