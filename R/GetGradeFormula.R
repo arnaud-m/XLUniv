@@ -1,7 +1,7 @@
 #' Get an excel formula to grade a student  
 #'
 #' @param n Row indices to apply the formula
-#' @param m Column index where the start the grades
+#' @param m Column index where start the grades
 #' @param coefs Named vector with coefficients
 #' @param max Index in \code{coefs} of the special grade that replaces any other lower grade
 #' @param round Rounding value (default: 0.5)
@@ -12,10 +12,10 @@
 #'
 #' coefs <- c(CC = 0.3, CP = 0.3, CT=0.4)
 #' GetGradeFormula(5, 10, coefs)
-#' GetGradeFormula(5, 10, coefs, coefs = 3)
+#' GetGradeFormula(5, 10, coefs, max = 3)
 #' GetGradeFormula(5, 10, coefs, round = NA) 
 GetGradeFormula <- function(n, m, coefs, max = NA, round = 0.5) {
-  input <- Idx2Ref(c(rbind(n, m + seq_along(coefs))))
+  input <- Idx2Ref(c(rbind(n, m + seq_along(coefs)-1)))
   if(is.numeric(max)) {
     input <- paste("MAX(", input, ", ", Idx2Ref(c(n, m + max)), ")", sep = "")
   }
