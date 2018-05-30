@@ -14,7 +14,7 @@
 #' 
 GetStatFormula <- function(n, m, nmin = 2) {
   
-  stopifnot(n > 0 && n%%1 == 0, m > 0 && m%%1 == 0, nmin > 0 && nmin%%1 == 0)
+  stopifnot((n > 0 && nmin > 0) || (nmin == 0 && nmin == n), n%%1 == 0 && nmin%%1 == 0, m > 0 && m%%1 == 0)
   
   sprintf(
     "%s(%s%s)",
