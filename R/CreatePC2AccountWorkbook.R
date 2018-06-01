@@ -28,35 +28,35 @@ CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams =
                 Member2 = sample(LETTERS, 5)
               )
 
-  
+
   #teamdata <- data.frame(
   #              Team = teamfile$Team,
   #              Group = teamfile$Group,
   #              Member1 = teamfile$Member1,
   #              Member2 = teamfile$Member2
-  #            ) 
+  #            )
   # Il faut juste vérifier avant que les noms des colonnes dans le fichier csv teamfile s'appel Team, Group, Member1, Member2
   # Cela résoudrait le problème de lecture des fichiers csv
-  
-  
+
+
   # Tsv file
   tsvfile <- GenerateAccountPC2(nteams = nteams, njudges = njudges, teams = teamdata[, 1], groups = teamdata[, 2])
   tsvfile <- data.frame(tsvfile, Member1 = NA, Member2 = NA)
-  
+
   for(k in 1:length(teamdata$Group)) {
     tsvfile$Member1[tsvfile$group == paste(teamdata[k, 2])] = paste(teamdata$Member1[k])
     tsvfile$Member2[tsvfile$group == paste(teamdata[k, 2])] = paste(teamdata$Member2[k])
   }
-  
-  write.table(tsvfile, file = paste(filename, ".tsv", sep = ""), quote = FALSE , sep = "\t") # Voir la destination
-  
+
+  write.table(tsvfile, file = paste(path.expand("~/"),filename, ".tsv", sep = ""), quote = FALSE , sep = "\t")
+
   # The xslx file
-  wb <- XLConnect::loadWorkbook(paste(filename, ".xlsx", sep = ""), create = TRUE) # Voir la destination
-  
+  wb <- XLConnect::loadWorkbook(paste(path.expand("~/"),filename, ".xlsx", sep = ""), create = TRUE)
+
   # The human readable sheet
-  XLConnect::Sheet(wb, "readable data")
+  XLConnect::createSheet(wb, "readable data")
   XLConnect::writeWorksheet(wb, tsvfile, sheet = "readable data", startRow = 1, startCol = 1)
-  
+
   # Compact table sort by student sheet
   student1 <- !is.na(tsvfile$Member1)
   student2 <- !is.na(tsvfile$Member2)
@@ -68,7 +68,7 @@ CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams =
   cstable <- cstable[do.call(order, cstable), ]
   XLConnect::createSheet(wb, "compact table sort by student")
   XLConnect::writeWorksheet(wb, cstable, sheet = "compact table sort by student", startRow = 1, startCol = 1)
-  
+
   # Free teams sheet
   notstudent <- is.na(tsvfile$Member1)
   notstudent[1:(njudges + 2)] <- FALSE
@@ -79,7 +79,7 @@ CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams =
             )
   XLConnect::createSheet(wb, "free teams")
   XLConnect::writeWorksheet(wb, ftable, sheet = "free teams", startRow = 1, startCol = 1)
-  
+
   XLConnect::saveWorkbook(wb)
-  
+
 }
