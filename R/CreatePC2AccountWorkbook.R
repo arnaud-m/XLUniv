@@ -3,6 +3,7 @@
 #' @param teamfile a csv file that contains the team information
 #' @param filename a character prefix for the generated files
 #' @param teamcapa the capacity of a team
+#' @param location where to save the created files (xls and tsv file)
 #' @inheritParams GenerateAccountPC2
 #'
 #' the team information includes: Team, Group, Member1, ... , Member\code{teamfile}.
@@ -19,7 +20,7 @@
 #' @export
 #' @examples
 #'
-CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams = 100, njudges = 4, teamcapa = NA) {
+CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams = 100, njudges = 4, teamcapa = NA, location = path.expand("~/")) {
   # On suppose que le fichier csv contient les colonnes suivantes.
   teamdata <- data.frame(
                 Team = head(letters, 5),
@@ -48,10 +49,10 @@ CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams =
     tsvfile$Member2[tsvfile$group == paste(teamdata[k, 2])] = paste(teamdata$Member2[k])
   }
 
-  write.table(tsvfile, file = paste(path.expand("~/"),filename, ".tsv", sep = ""), quote = FALSE , sep = "\t")
+  write.table(tsvfile, file = paste(location, filename, ".tsv", sep = ""), quote = FALSE , sep = "\t")
 
   # The xslx file
-  wb <- XLConnect::loadWorkbook(paste(path.expand("~/"),filename, ".xlsx", sep = ""), create = TRUE)
+  wb <- XLConnect::loadWorkbook(paste(location, filename, ".xlsx", sep = ""), create = TRUE)
 
   # The human readable sheet
   XLConnect::createSheet(wb, "readable data")
