@@ -29,7 +29,7 @@ CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams =
                 Member2 = sample(LETTERS, 5)
               )
 
-
+  #teamdata <- read.csv(teamfile, header = TRUE, sep= ",", encoding = "UTF-8")
   #teamdata <- data.frame(
   #              Team = teamfile$Team,
   #              Group = teamfile$Group,
