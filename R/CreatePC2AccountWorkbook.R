@@ -19,34 +19,26 @@
 #'
 #' @export
 #' @examples
-#'
+#' teamdata <- data.frame(Team = head(letters, 5),Group = head(LETTERS, 5),Member1 = sample(letters, 5),Member2 = sample(LETTERS, 5))
+#' write.csv(teamdata, file = "~/example.csv")
+#' CreatePC2AccountWorkbook("~/example.csv")
+
+
+
+
+
+
 CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams = 100, njudges = 4, teamcapa = NA, location = path.expand("~/")) {
-  # On suppose que le fichier csv contient les colonnes suivantes.
-  teamdata <- data.frame(
-                Team = head(letters, 5),
-                Group = head(LETTERS, 5),
-                Member1 = sample(letters, 5),
-                Member2 = sample(LETTERS, 5)
-              )
 
-  #teamdata <- read.csv(teamfile, header = TRUE, sep= ",", encoding = "UTF-8")
-  #teamdata <- data.frame(
-  #              Team = teamfile$Team,
-  #              Group = teamfile$Group,
-  #              Member1 = teamfile$Member1,
-  #              Member2 = teamfile$Member2
-  #            )
-  # Il faut juste vérifier avant que les noms des colonnes dans le fichier csv teamfile s'appel Team, Group, Member1, Member2
-  # Cela résoudrait le problème de lecture des fichiers csv
-
+  teamdata <- read.csv(teamfile, header = TRUE, sep= ",", encoding = "UTF-8")
 
   # Tsv file
-  tsvfile <- GenerateAccountPC2(nteams = nteams, njudges = njudges, teams = teamdata[, 1], groups = teamdata[, 2])
+  tsvfile <- GenerateAccountPC2(nteams = nteams, njudges = njudges, teams = teamdata$Team, groups = teamdata$Group)
   tsvfile <- data.frame(tsvfile, Member1 = NA, Member2 = NA)
 
   for(k in 1:length(teamdata$Group)) {
-    tsvfile$Member1[tsvfile$group == paste(teamdata[k, 2])] = paste(teamdata$Member1[k])
-    tsvfile$Member2[tsvfile$group == paste(teamdata[k, 2])] = paste(teamdata$Member2[k])
+    tsvfile$Member1[tsvfile$group == paste(teamdata$Group[k])] = paste(teamdata$Member1[k])
+    tsvfile$Member2[tsvfile$group == paste(teamdata$Group[k])] = paste(teamdata$Member2[k])
   }
 
   write.table(tsvfile, file = paste(location, filename, ".tsv", sep = ""), quote = FALSE , sep = "\t")
