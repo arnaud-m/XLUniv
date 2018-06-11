@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
@@ -27,30 +27,19 @@
 
     <?php 
         if (isset($_POST['send'])) {
+	    $group = htmlspecialchars($_POST['Group']); 
+            if ($group == "autre") {
+                $group = htmlspecialchars($_POST['which-Group']); 
+            }		
 
-            $Group = "";
-            if (isset($_POST['L1'])) {
-                $Group = $Group."L1";
-            } if (isset($_POST['L2'])) {
-                $Group = $Group."L2";
-            } if (isset($_POST['L3'])) {
-                $Group = $Group."L3";
-            } if (isset($_POST['M1'])) {
-                $Group = $Group."M1";
-            } if (isset($_POST['M2'])) {
-                $Group = $Group."M2";
-            }
+            $team = htmlspecialchars($_POST['Teamname']); 
 
-            $Team = htmlspecialchars($_POST['Teamname']); 
-
-            $Member1 = htmlspecialchars($_POST['Member1']); 
-            $Member2 = htmlspecialchars($_POST['Member2']); 
-
-            $suggest = htmlspecialchars($_POST['suggest']); 
+            $member1 = htmlspecialchars($_POST['Member1']); 
+            $member2 = htmlspecialchars($_POST['Member2']); 
             
             $fd = fopen ("teamfile.csv", "a");
             if ($fd) {
-                fwrite($fd, $Group.";".$Team.";".$Member1.";".$Member2."\r\n");
+                fwrite($fd, $group.";".$team.";".$member1.";".$member2."\r\n");
                 fclose($fd);
             }
         }
