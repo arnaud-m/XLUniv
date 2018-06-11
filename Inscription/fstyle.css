@@ -6,12 +6,12 @@ html, body {
 
 body {
     -webkit-text-size-adjust: none;
-    background-color: rgb(172, 172, 255);
+    background-color: rgb(105, 235, 175);
 }
 
 header {
     -webkit-text-size-adjust: none;
-    background-color: white;
+    background-color: cornsilk;
 }
 
 .thanks {
@@ -74,15 +74,7 @@ button:hover {
     color: rgb(8, 178, 227);
 }
 
-.reveal-if-active {
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    padding-left: 2em;
-}
-
-input[type="radio"]:checked ~ .reveal-if-active,
-input[type="checkbox"]:checked ~ .reveal-if-active {
+input[type="radio"]:checked ~ .reveal-if-active {
     opacity: 1;
     max-height: 100px; /* little bit of a magic number :( */
     overflow: visible;
