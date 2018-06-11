@@ -11,7 +11,7 @@ body {
 
 header {
     -webkit-text-size-adjust: none;
-    background-color: cornsilk;
+    background: radial-gradient(closest-corner ellipse at center, rgb(255, 248, 220) 50%, rgb(105, 235, 175) 100%);
 }
 
 .thanks {
