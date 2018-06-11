@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
@@ -14,8 +14,8 @@
 
         <div class="overall">
             <section>
-                <div style = "background-color: rgb(0, 0, 255);padding: 0.2em;"> </div>
-                <h1> Fiche d'inscription au concour de programmation </h1>
+                <div style = "background-color: rgb(242, 242, 242); padding: 0.2em;"> </div>
+                <h1> Fiche d'inscription au concours de programmation </h1>
 
                 <form method="post" id="ICP" action="enregistrer.php">
                     <div class="highlight">
@@ -26,27 +26,26 @@
                             <input type="radio" name="Group" value="L3" id="L3"/> <label for="L3"> Licence 3ème année </label> <br/>
                             <input type="radio" name="Group" value="M1" id="M1"/> <label for="M1"> Master 1ère année </label> <br/>
                             <input type="radio" name="Group" value="M2" id="M2"/> <label for="M2"> Master 2ème année </label> <br/>
-                            <div style="margin-top:-2.1em;padding:0 5vmin 1em 5vmin">
-                                <input type="radio" name="radio" value="autre" id="autrep"/> <label for="autrep">Autre</label>
-                                <div class="reveal-if-active">
-                                    <input type="text" id="which-Group" name="which-Group" class="require-if-active" data-require-pair="#autrep" size="60vmin">
-                                </div>
-                            </div>
-			</p>
+                            <div style="margin-top: -2.1em; padding: 0 5vmin 1em 5vmin">
+ +                                <input type="radio" name="Group" value="autre" id="autreg"/> <label for="autreg"> Autre </label>
+ +                                <div class="reveal-if-active">
+ +                                    <input type="text" id="which-Group" name="which-Group" class="require-if-active" data-require-pair="#autreg" size="60vmin">
+ +                                </div>
+ +                          </div>
+                        </p>
                     </div>
 
                     <p class="dec">
                         Quel est le nom de votre team ? <br/>
-                        <input type="text" name="Teamname" id="Teamname" size="20vmin" required maxlength=10> 
+                        <input type="text" name="Teamname" id="Teamname" size="20vmin" required maxlength=20> 
                     </p>
 
                     <div class="highlight">
                         <p class="dec">
-                            Nom et prénom des deux membres de la team ? <br/>
-                            <input type="text" name="Member1" id="Member1" size="30vmin" placeholder="ab123456" required pattern="^[a-zA-Z]{2}[0-9]{6}$"> <br/>
-                            <input type="text" name="Member2" id="Member2" size="30vmin" placeholder="ba654321" required pattern="^[a-zA-Z]{2}[0-9]{6}$"> <br/>
-                            
-			</p>
+                            Numéro d'étudiant des deux membres de la team : <br/>
+                            <input type="text" name="Member1" id="Member1" size="30vmin" placeholder="ab123456" required pattern="^[a-z]{2}[0-9]{6}$"> <br/>
+                            <input type="text" name="Member2" id="Member2" size="30vmin" placeholder="ba654321" required pattern="^[a-z]{2}[0-9]{6}$"> <br/>
+                        </p>
                     </div>
 
                     <div class="dec">
