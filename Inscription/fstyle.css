@@ -6,12 +6,12 @@ html, body {
 
 body {
     -webkit-text-size-adjust: none;
-    background-color: rgb(105, 235, 175);
+    background-color: rgb(117, 204, 177);
 }
 
 header {
     -webkit-text-size-adjust: none;
-    background: radial-gradient(closest-corner ellipse at center, rgb(255, 248, 220) 50%, rgb(105, 235, 175) 100%);
+    background: radial-gradient(closest-corner ellipse at center, rgb(255, 248, 220) 50%, rgb(117, 204, 177) 90%);
 }
 
 .thanks {
