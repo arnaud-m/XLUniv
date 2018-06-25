@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="fstyle.css">
+        <title> Inscription au concours </title>
+    </head>
+
+    <body>
+        <header>
+            <center> <img src="Concoursprog.jpg" alt="Concours programmation" height="170"/> </center>
+        </header>
+
+        <div class="overall">
+            <section>
+                <div style = "background-color: rgb(242, 242, 242); padding: 0.2em;"> </div>
+                <h1> Fiche d'inscription au concours de programmation </h1>
+
+                <form method="post" id="ICP" action="enregistrer.php">
+                    <div class="highlight">
+                        <p class="dec">
+                            Quel niveau d'étude avez vous ? <br/>
+                            <input type="radio" name="Group" value="L1" id="L1"/> <label for="L1"> Licence 1ère année </label> <br/>
+                            <input type="radio" name="Group" value="L2" id="L2"/> <label for="L2"> Licence 2ème année </label> <br/>
+                            <input type="radio" name="Group" value="L3" id="L3"/> <label for="L3"> Licence 3ème année </label> <br/>
+                            <input type="radio" name="Group" value="M1" id="M1"/> <label for="M1"> Master 1ère année </label> <br/>
+                            <input type="radio" name="Group" value="M2" id="M2"/> <label for="M2"> Master 2ème année </label> <br/>
+                            <div style="margin-top: -2.1em; padding: 0 5vmin 1em 5vmin">
+                                <input type="radio" name="Group" value="autre" id="autreg"/> <label for="autreg"> Autre </label>
+                                <div class="reveal-if-active">
+                                    <input type="text" id="which-Group" name="which-Group" class="require-if-active" data-require-pair="#autreg" size="20vmin">
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+
+                    <p class="dec">
+                        Quel est le nom de votre team ? <br/>
+                        <input type="text" name="Teamname" id="Teamname" size="20vmin" required maxlength=20> 
+                    </p>
+
+                    <div class="highlight">
+                        <p class="dec">
+                            Numéro d'étudiant des deux membres de la team : <br/>
+                            <input type="text" name="Member1" id="Member1" size="20vmin" placeholder="ab123456" required pattern="^[a-z]{2}[0-9]{6}$"> <br/>
+                            <input type="text" name="Member2" id="Member2" size="20vmin" placeholder="ba654321" required pattern="^[a-z]{2}[0-9]{6}$"> <br/>
+                        </p>
+                    </div>
+
+                    <div class="dec">
+                        <center>
+                            <button type="submit" name="send">
+                                S'inscrire
+                            </button>
+                        </center>
+                    </div>
+                </form>
+            </section>
+
+            <section class="highlight thanks">
+                <p>
+                    Merci de remplir le formulaire d'inscription correctement
+                </p>
+            </section>
+        </div>
+
+        <footer>
+            © Lucas Guiglionia et Thomas Dissaux
+        </footer>
+    </body>
+</html>

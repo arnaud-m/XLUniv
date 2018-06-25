@@ -6,8 +6,8 @@ test_that("All Calcul work", {
 # Entrée des notes:
 df <- data.frame(nom = sample(LETTERS, 20), prenom = sample(letters, 20), numetu = seq(20))
 listing <- c("nom", "prenom", "numetu")
-notes <- data.frame(CC=sample(0:0.5:20, 20, replace = TRUE), CP = sample(0:0.5:20, 20, replace = TRUE), CT = sample(0:0.5:20, 20, replace = TRUE))
-namefile<-paste(tempfile(),".xlsx")
+notes <- data.frame(CC = sample(0:0.5:20, 20, replace = TRUE), CP = sample(0:0.5:20, 20, replace = TRUE), CT = sample(0:0.5:20, 20, replace = TRUE))
+namefile <- paste(tempfile(), ".xlsx", sep = "")
 CreateSesameWorkbook(namefile, df, listing = listing, sort = TRUE)
 wb <- XLConnect::loadWorkbook(namefile, create = TRUE)
 for(k in 4:6){
