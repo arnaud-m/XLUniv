@@ -22,33 +22,40 @@
 #' teamdata <- data.frame(Team = head(letters, 5),Group = head(LETTERS, 5),Member1 = sample(letters, 5),Member2 = sample(LETTERS, 5))
 #' write.csv(teamdata, file = "~/example.csv")
 #' CreatePC2AccountWorkbook("~/example.csv")
+CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams = 100, njudges = 4, teamcapa = NA, location = path.expand(".")) {
 
-
-
-
-
-
-CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams = 100, njudges = 4, teamcapa = NA, location = path.expand("~/")) {
-
-  teamdata <- read.csv(teamfile, header = TRUE, sep= ",", encoding = "UTF-8")
-
-  # Tsv file
-  tsvfile <- GenerateAccountPC2(nteams = nteams, njudges = njudges, teams = teamdata$Team, groups = teamdata$Group)
-  tsvfile <- data.frame(tsvfile, Member1 = NA, Member2 = NA)
-
-  for(k in 1:length(teamdata$Group)) {
-    tsvfile$Member1[tsvfile$group == paste(teamdata$Group[k])] = paste(teamdata$Member1[k])
-    tsvfile$Member2[tsvfile$group == paste(teamdata$Group[k])] = paste(teamdata$Member2[k])
+  teamdata <- read.csv(teamfile, header = TRUE, sep= ",", stringsAsFactors = FALSE, encoding = "UTF-8")
+  
+  ## Clean members
+  CleanMembers <- function(x) {
+    x <- trimws(x)
+    x [ nchar(x) == 0 ] <- NA
+    return(x)
   }
+  teamdata$Member1 <- CleanMembers(teamdata$Member1)
+  teamdata$Member2 <- CleanMembers(teamdata$Member2)
+  ## Remove duplicated members
+  teamdata$Member2[teamdata$Member1 == teamdata$Member2] <- NA
 
-  write.table(tsvfile, file = paste(location, filename, ".tsv", sep = ""), quote = FALSE , sep = "\t")
+  ## Generate account
+  tsvfile <- GenerateAccountPC2(nteams = nteams, njudges = njudges, teams = teamdata$Team, groups = teamdata$Group)
+  ## Add placeholders for the members
+  tsvfile <- data.frame(tsvfile, Member1 = NA, Member2 = NA)
+  ## Add the registered team members
+  offset <- which(tsvfile$account == "team2")
+  teamInd <- seq(offset, length.out = nrow(teamdata))
+  memberInd <- paste0("Member", 1:2)
+  tsvfile[ teamInd, memberInd] <- teamdata[, memberInd]
+
+  ## Write a csv file
+  write.table(tsvfile, file = file.path(location, paste0(filename, ".tsv")), quote = FALSE , sep = "\t", row.names = FALSE)
 
   # The xslx file
-  wb <- XLConnect::loadWorkbook(paste(location, filename, ".xlsx", sep = ""), create = TRUE)
+  wb <- XLConnect::loadWorkbook(file.path(location, paste0(filename, ".xlsx")), create = TRUE)
 
   # The human readable sheet
-  XLConnect::createSheet(wb, "readable data")
-  XLConnect::writeWorksheet(wb, tsvfile, sheet = "readable data", startRow = 1, startCol = 1)
+  XLConnect::createSheet(wb, "Teams")
+  XLConnect::writeWorksheet(wb, tsvfile, sheet = "Teams", startRow = 1, startCol = 1)
 
   # Compact table sort by student sheet
   student1 <- !is.na(tsvfile$Member1)
@@ -59,8 +66,8 @@ CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams =
                password = c( paste(tsvfile$password[student1]), paste(tsvfile$password[student2]) )
              )
   cstable <- cstable[do.call(order, cstable), ]
-  XLConnect::createSheet(wb, "compact table sort by student")
-  XLConnect::writeWorksheet(wb, cstable, sheet = "compact table sort by student", startRow = 1, startCol = 1)
+  XLConnect::createSheet(wb, "Students")
+  XLConnect::writeWorksheet(wb, cstable, sheet = "Students", startRow = 1, startCol = 1)
 
   # Free teams sheet
   notstudent <- is.na(tsvfile$Member1)
@@ -70,8 +77,8 @@ CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams =
               password = paste(tsvfile$password[notstudent]),
               member1 = NA, member2 = NA
             )
-  XLConnect::createSheet(wb, "free teams")
-  XLConnect::writeWorksheet(wb, ftable, sheet = "free teams", startRow = 1, startCol = 1)
+  XLConnect::createSheet(wb, "Accounts")
+  XLConnect::writeWorksheet(wb, ftable, sheet = "Accounts", startRow = 1, startCol = 1)
 
   XLConnect::saveWorkbook(wb)
 
