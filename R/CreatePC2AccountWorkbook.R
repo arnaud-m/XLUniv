@@ -22,7 +22,7 @@
 #' teamdata <- data.frame(Team = head(letters, 5),Group = head(LETTERS, 5),Member1 = sample(letters, 5),Member2 = sample(LETTERS, 5))
 #' write.csv(teamdata, file = "~/example.csv")
 #' CreatePC2AccountWorkbook("~/example.csv")
-CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams = 100, njudges = 4, teamcapa = NA, location = path.expand(".")) {
+CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams = 100, njudges = 4, teamcapa = NA, location = path.expand("."), seed = NULL) {
 
   teamdata <- read.csv(teamfile, header = TRUE, sep= ",", stringsAsFactors = FALSE, encoding = "UTF-8")
   
@@ -37,6 +37,11 @@ CreatePC2AccountWorkbook <- function(teamfile, filename = "pc2account", nteams =
   ## Remove duplicated members
   teamdata$Member2[teamdata$Member1 == teamdata$Member2] <- NA
 
+  ## Set the random seed to generate the same passwords
+  if(is.numeric(seed)) {
+    set.seed(seed)
+  }
+  
   ## Generate account
   tsvfile <- GenerateAccountPC2(nteams = nteams, njudges = njudges, teams = teamdata$Team, groups = teamdata$Group)
   ## Add placeholders for the members

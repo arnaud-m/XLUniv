@@ -45,8 +45,7 @@ GenerateAccountPC2 <- function(nteams = 100, njudges = 16, teams = character(0),
   missing <- is.na(groups) | nchar(groups) == 0
   groups[missing] <- "nogroup"
   
-  
-  
+    
   CreateAccount <- function(account, password = chartr("aeiouy","AEIOUY",account), group = "nogroup", 
                                 displayname = account, alias = account, permdisplay = "false", permlogin = "true") {
     data.frame(
