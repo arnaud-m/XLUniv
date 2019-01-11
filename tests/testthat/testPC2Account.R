@@ -24,8 +24,8 @@ test_that("All Account creation work", {
   for (k in 1:5){
     expect_equal(paste( teamdf$Group[k]), paste(tsvfile$group[k+6]) )
     expect_equal(paste( teamdf$Team[k]), paste(tsvfile$displayname[k+6]) )
-    expect_equal(paste( teamdf$Member1[k]), paste(tsvfile$Member1[k+6]) )
-    expect_equal(paste( teamdf$Member2[k]), paste(tsvfile$Member2[k+6]) )
+    expect_equal(paste( teamdf$Member1[k]), paste(tsvfile$member1[k+6]) )
+    expect_equal(paste( teamdf$Member2[k]), paste(tsvfile$member2[k+6]) )
   }
 
 

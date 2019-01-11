@@ -56,7 +56,8 @@ GenerateAccountPC2 <- function(nteams = 100, njudges = 16, teams = character(0),
       displayname = displayname,
       alias = alias,
       permdisplay = permdisplay,
-      permlogin = permlogin
+      permlogin = permlogin,
+      stringsAsFactors = FALSE
     )
   }
   
