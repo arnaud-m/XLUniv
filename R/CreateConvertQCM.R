@@ -5,7 +5,7 @@
 #' @param n  Number of questions
 #' @param minNum Minimum possible number to convert
 #' @param maxNum Maximum possible number to convert 
-#' @param precision Power of the increment of the numbers to convert (2**(-precision))
+#' @param precision power of the increment of numbers to convert (2**(-precision))
 #'
 #' @export
 #' @examples
