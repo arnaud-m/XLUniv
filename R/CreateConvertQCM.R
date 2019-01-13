@@ -3,43 +3,48 @@
 #' 
 #' 
 #' @param n  Number of questions
-#' @param m Column index of the cells to apply the statistics to.
-#' @param nmin  Minimal row index of the cells to apply the statistics to.
+#' @param minNum Minimum possible number to convert
+#' @param maxNum Maximum possible number to convert 
+#' @param precision Power of the increment of the numbers to convert (2**(-precision))
 #'
 #' @export
 #' @examples
 #'
 #' CreateConvertQCM(6)
-#' CreateConvertQCM(10, bases = c(2, 10), prefBases = NA, minNum = 10, maxNum = 20, by = 1/16)
+#' CreateConvertQCM(10, minNum = 10, maxNum = 20, precision = 1)
 CreateConvertQCM <- function(n,
-                             bases = c(2, 3, 4, 8, 10, 16),
-                             prefBases = 10,
-                              minNum = 100,
+                             minNum = 100,
                              maxNum = 2048,
-                             by = 1,
+                             precision = 5
                              ) {
-  stopifnot(n > 0, bases > 0, maxNum >= minNum)
+  stopifnot(n > 0, maxNum >= minNum, minNum >= 0, precision >= 0)
   
-  # Generate the base conversion
-  conversions <- expand.grid(orig = bases, dest = bases)
-  conversions <- subset(conversions, conversions$orig != conversions$dest )     
-  probconv <- 1 + (conversions$orig %in% prefBases)
-
-  exdata <- conversions[ sample(seq_along(probconv), n, replace = TRUE, prob = probconv), ]
-  rownames(exdata) <- NULL
+  conversions <- data.frame(
+    orig = c(10, 10, 10, 10,  2,  4,  8, 16,  2,  2,  2,  4,  4,  8),
+    dest = c( 2,  4,  8, 16, 10, 10, 10, 10,  4,  8, 16,  8, 16, 16),
+    prob = c( 2,  2,  2,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1)
+  )
+  
+  convQ <- sample(seq_along(conversions$prob), n, replace = TRUE, prob = conversions$prob)
+  exdata <- conversions[ convQ, c('orig', 'dest') ]
   exdata <- as.data.frame(exdata)
+  rownames(exdata) <- NULL
   
-  values <- seq(minNum, maxNum, by)
-  if( by != round(by)) {
-    ## Use only decimals, remove integers.
+  values <- seq(minNum, maxNum, 2 ** (-precision))
+  if( precision > 0) {
+    ## remove integers.
     values <- subset(values, round(values) != values)
   }
   exdata$value <- sample(values, n)
 
-  valueO <- apply(exdata, 1, function(x) NumberToString(x['value'], base = x['orig']))
-  valueD <- apply(exdata, 1, function(x) NumberToString(x['value'], base = x['dest']))
-
+  ## First, apply on NUMERIC vector
+  valueO <- apply(exdata, 1, function(x) EncodeNumber(x['value'], base = x['orig']))
+  valueD <- apply(exdata, 1, function(x) EncodeNumber(x['value'], base = x['dest']))
+  ## Second, add the new columns
   exdata$valueO <- valueO
   exdata$valueD <- valueD
+
   return(exdata)
 }
+
+
