@@ -1,4 +1,4 @@
-#' Print a SA question about reading code.
+#' Print a single SA question about reading code.
 #'
 #' 
 #' @param pathname  filename of the question code
@@ -12,7 +12,10 @@
 #'
 GiftCodeSA <- function(pathname) {
   EvalText <- function(text) eval.parent(parse(text = text))
-
+  if(! require("RGIFT")) {
+    warning('Cannot ask the question: RGIFT not available.')
+  }
+   
   ## Read question code
   lines <- readLines(pathname)
   ## Retrieve the variable 'params'
@@ -28,11 +31,12 @@ GiftCodeSA <- function(pathname) {
     codeQ <- EscapeChar(codeQ, ch)
   }
 
+  codename <- basename(pathname)
   ## Loop over params to build the parametrized questions
   for(n in params) {
     ## Question 
     codeN <- paste(
-      '::Lecture de code::\n',
+      '::Lecture du code ',codename, ' (n=' ,n, ')::\n',
       'Qu\'affiche le code suivant ?\n',
       'n <- ', n, '\n',
       codeQ, '\n',

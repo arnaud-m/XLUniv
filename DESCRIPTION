@@ -10,6 +10,6 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Suggests: testthat
-Imports: XLConnect
+Imports: XLConnect, RGIFT
 RoxygenNote: 6.1.1
 Encoding: UTF-8

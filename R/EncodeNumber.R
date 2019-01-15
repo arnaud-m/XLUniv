@@ -3,16 +3,17 @@
 #' 
 #' @param n  Number to convert
 #' @param base Base of conversion
-#' @param digits the character that represent the digits 0...(base-1)
-#' @param precision the maximum precision of the fractional part 
+#' @param digits Character vector that represent the digits 0...(base-1)
+#' @param dec Decimal separator
+#' @param precision Maximum precision of the fractional part 
 #'
 #' @examples
 #' EncodeNumber(42)
 #' EncodeNumber(42, 2)
 #' EncodeNumber(42, 3, letters) 
 EncodeNumber <- function(n, base = 10, digits = c(0:9, LETTERS), dec = '.', precision = 31) {
-  stopifnot(n >= 0, base <= length(digits))
-  tolerance <- 2**(-precision)
+  stopifnot(n >= 0, base > 1, base <= length(digits), is.character(dec), is.numeric(precision))
+  tolerance <- 2**(-30)
   f <- floor(n)
   d <- n - f
   ## integer part
@@ -39,6 +40,7 @@ EncodeNumber <- function(n, base = 10, digits = c(0:9, LETTERS), dec = '.', prec
     }
     ## Check if something has gone wrong
     if(prec == precision) {
+      acc <- gsub('\\.0*$','', acc) ## remove possible trailing zeros
       warning(
         sprintf(
           'Maximum precision (%d) reached when converting %f in base %d: %s',

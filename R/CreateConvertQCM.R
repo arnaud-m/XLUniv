@@ -43,8 +43,8 @@ CreateConvertQCM <- function(n,
   ## Second, add the new columns
   exdata$valueO <- valueO
   exdata$valueD <- valueD
-
-  return(exdata)
+  
+  return(as.data.frame(exdata))
 }
 
 
