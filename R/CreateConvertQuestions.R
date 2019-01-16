@@ -1,6 +1,5 @@
-#' Create data for a QCM with base conversion questions
+#' Create a data frame with base conversion questions
 #'
-#' 
 #' 
 #' @param n  Number of questions
 #' @param minNum Minimum possible number to convert
@@ -10,9 +9,9 @@
 #' @export
 #' @examples
 #'
-#' CreateConvertQCM(6)
-#' CreateConvertQCM(10, minNum = 10, maxNum = 20, precision = 1)
-CreateConvertQCM <- function(n,
+#' CreateConvertQuestions(6)
+#' CreateConvertQuestions(10, minNum = 10, maxNum = 20, precision = 1)
+CreateConvertQuestions <- function(n,
                              minNum = 100,
                              maxNum = 2048,
                              precision = 5

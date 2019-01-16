@@ -5,9 +5,24 @@ n <- ifelse(DEBUG, 3, 100)
 
 GiftConvertSAC <- function(category, n, minNum, maxNum, precision) {
   GIFTD(paste0('$CATEGORY: conversion/', category))
-  GiftConvertSA(CreateConvertQCM(n, minNum, maxNum, precision))
+  GiftConvertSA(CreateConvertQuestions(n, minNum, maxNum, precision))
 }
 
+TestCodeQuestion <- function(pathname) {
+  ## Read question code
+  lines <- readLines(pathname)
+  ## Add loop over params
+  lines <- c(
+    head(lines, 1),
+    'for(n in params) {',
+    tail(lines, -1),
+    'cat(\'\\n\')',
+    '}'
+  )
+  code <- paste(lines, collapse = '\n')
+  cat(code)
+  eval(parse(text = code))
+}
 
 sink('gift-questions.txt')
 GiftConvertSAC('integer/easy', n, minNum = 0, maxNum = 256, precision = 0)

@@ -5,7 +5,9 @@
 #'
 #' The first line of file contains the parameters of the questions in  a vector named 'params'.
 #' The next lines contains the source code of the question.
-#' The source code requires a single parameter named 'n'
+#' The source code requires a single parameter named 'n'.
+#' 
+#' The expected output is a sequence of integer or characters.
 #'
 #' @export
 #' @examples

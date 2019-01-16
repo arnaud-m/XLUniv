@@ -5,7 +5,7 @@
 #' @export
 #' @examples
 #'
-#' exdata <- CreateConvertQCM(10)
+#' exdata <- CreateConvertQuestions(10)
 #' GiftConvertSA(exdata)
 GiftConvertSA <- function(exdata) {
   if(! require("RGIFT")) {
