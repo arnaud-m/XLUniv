@@ -30,16 +30,17 @@ GiftCodeSA <- function(pathname) {
   for(ch in c('~','=','#','{','}',':')) {
     codeQ <- EscapeChar(codeQ, ch)
   }
+  codeQ <- gsub('\n', '\\\\n    ', codeQ)
 
   codename <- basename(pathname)
   ## Loop over params to build the parametrized questions
   for(n in params) {
     ## Question 
     codeN <- paste(
-      '::Lecture du code ',codename, ' (n=' ,n, ')::\n',
+      '::Lecture du code ',codename, ' (n=' ,n, ')::\n[markdown]\n',
       'Qu\'affiche le code suivant ?\n',
-      'n <- ', n, '\n',
-      codeQ, '\n',
+      '\\n\n\\n    n <- ', n, '\\n    ',
+      codeQ, '\n\\n\\n\\n',
       sep = '', collapse = ''
     )
     ## Answer
