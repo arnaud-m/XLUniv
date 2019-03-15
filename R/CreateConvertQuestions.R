@@ -34,7 +34,7 @@ CreateConvertQuestions <- function(n,
     ## remove integers.
     values <- subset(values, round(values) != values)
   }
-  exdata$value <- sample(values, n)
+  exdata$value <- sample(values, n , replace = ifelse( n > length(values), TRUE, FALSE))
 
   ## First, apply on NUMERIC vector
   valueO <- apply(exdata, 1, function(x) EncodeNumber(x['value'], base = x['orig']))
