@@ -7,13 +7,14 @@ test_that("Integer Encoding succeeds", {
   expect_equal('0', EncodeNumber(0, base = 2))
 
   expect_equal('a', EncodeNumber(0, base = 2, digits = letters))
-  expect_equal('ab', EncodeNumber(1, base = 2, digits = letters))
+  expect_equal('b', EncodeNumber(1, base = 2, digits = letters))
   expect_equal('ba', EncodeNumber(2, base = 2, digits = letters))
   expect_equal('bb', EncodeNumber(3, base = 2, digits = letters))
 
-
-  expect_equal('10', EncodeNumber(16, base = 36))
-  expect_equal('Z', EncodeNumber(45, base = 36))
+  expect_equal('10', EncodeNumber(16, base = 16))
+  
+  expect_equal('G', EncodeNumber(16, base = 36))
+  expect_equal('Z', EncodeNumber(35, base = 36))
 
   for(base in 2:36) {
     for(n in 0:1024) {
