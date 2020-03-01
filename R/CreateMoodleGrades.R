@@ -2,15 +2,17 @@
 #'
 #' @param infile a csv file with runs that is exported from sphere engine
 #' @param groupfile a csv file with teams that is exported from the moodle plugin (group auto-selection) 
-#' @param outfile the filename prefix for generated files
+#' @param outfile the filename prefix for the two generated files
 #' @param binary binary or score assessment
-#' @param verbose print some information 
+#' @param verbose print information about processing 
 #'
 #' @export
 CreateMoodleGrades <- function(infile, groupfile = NULL, outfile = 'moodle-SE', binary = FALSE, verbose = TRUE) {
+  ## TODO Store the best submission number.
   results <- read.csv(infile, strip.white = TRUE, stringsAsFactors = FALSE)
   if(verbose) cat('Processing', nrow(results), 'runs\n')
-  results$user.email <- gsub("@etu\\.unice\\.fr$", "@etu\\.univ-cotedazur.fr", results$user.email)
+  results$user.email <- tolower(results$user.email)
+  results$user.email <- gsub("@etu\\.unice\\.fr$", "@etu\\.univ-cotedazur\\.fr", results$user.email)
   results <- subset(results, grepl('@etu\\.univ-cotedazur\\.fr$', results$user.email))
   if(verbose) cat('Found', nrow(results), 'student runs\n')
 
@@ -27,7 +29,12 @@ CreateMoodleGrades <- function(infile, groupfile = NULL, outfile = 'moodle-SE', 
     } else if(binary) {
       score <- 100
     } else {
-      score <- ceiling(max(x$score[accepted]))
+      sc <- x$score[accepted]
+      if(is.character(sc)) {
+        ## Remove percent sign
+        sc <- as.numeric(gsub('%', '', sc))
+      }
+      score <- ceiling(max(sc))
     }
     ## Compute stats
     return (c(
